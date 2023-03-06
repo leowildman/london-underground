@@ -1,5 +1,6 @@
 from tubemap import tubemap
 from pathfind import Pathfinding
+from random import randint
 
 #1. Write code that will ask the user to enter two valid London Underground stations and...
 #2. Calculate all possible routes between those two stations without visiting the same station more than once on that route
@@ -27,14 +28,27 @@ while 1:
   except:
     pass
 
-print(tubemap["Aldgate"])
-print(pf.data.vertices)
 for vertex in pf.data.vertices:
   pf.compute_vertex_neighbours(vertex, tubemap[vertex.data])
 
-print(pf.data.get_vertex("Liverpool Street"))
 paths = pf.find(station1, station2)
 
-for path in paths:
-  print(":".join([station.data for station in path]))
+paths.sort(key=len)
+
+print(f"Paths({len(paths)}):\n\n")
+
+for path in paths[:5]:
+  print(" -> ".join([station.data for station in path]))
   print("\n\n")
+
+funpaths = []
+
+for station1 in station_input_data.values():
+  for station2 in station_input_data.values():
+    if station1 == station2: continue
+    paths = pf.find(pf.data.get_vertex(station1), pf.data.get_vertex(station2))
+    funpaths.append((station1, station2, len(paths)))
+    if randint(0,10) == 4: print(len(funpaths))
+
+funpaths.sort(key=[2])
+print(funpaths[:10])
