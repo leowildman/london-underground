@@ -16,6 +16,7 @@ class Pathfinding:
     paths = []
     stack = Stack(len(self.data.vertices))
     stack.push([start])
+    explored = []
     while stack.peek() != None:
         path = stack.pop()
         node = path[-1]
@@ -23,6 +24,8 @@ class Pathfinding:
             paths.append(path)
         else:
             for adjacent in node.neighbours:
+                # if adjacent in explored: continue
+                # else: explored.append(adjacent)
                 if adjacent not in path:
                     new_path = list(path)
                     new_path.append(adjacent)
