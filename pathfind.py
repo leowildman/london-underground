@@ -12,25 +12,23 @@ class Pathfinding:
     for value in neighbours:
       self.data.add_edge(vertex, self.data.get_vertex(value))
 
-  def find(self, start:Vertex, end):
+  def find(self, start: Vertex, end: Vertex):
     paths = []
-    current_path = []
-    current_vertex = start
-    next_verticies = Stack(len(self.data.vertices))
-    while 1:
-      current_path = [start]
-      for value in current_vertex.neighbours:
-        if value in current_path: continue
+    stack = Stack(len(self.data.vertices))
+    stack.push([start])
+    while stack.peek() != None:
+        path = stack.pop()
+        node = path[-1]
+        if node == end:
+            paths.append(path)
+        else:
+            for adjacent in node.neighbours:
+                if adjacent not in path:
+                    new_path = list(path)
+                    new_path.append(adjacent)
+                    stack.push(new_path)
+    return paths
 
-        if value not in next_verticies:
-          next_verticies.push(value)
-
-        
-
-      if current_vertex == end:
-        paths.append(current_path)
-
-      for 
         
 
 

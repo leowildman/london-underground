@@ -21,8 +21,8 @@ for index, station in station_input_data.items():
 
 while 1:
   try:
-    station1 = station_input_data[int(input("Station 1: "))]
-    station2 = station_input_data[int(input("Station 2: "))]
+    station1 = pf.data.get_vertex(station_input_data[int(input("Station 1: "))])
+    station2 = pf.data.get_vertex(station_input_data[int(input("Station 2: "))])
     break
   except:
     pass
@@ -33,3 +33,8 @@ for vertex in pf.data.vertices:
   pf.compute_vertex_neighbours(vertex, tubemap[vertex.data])
 
 print(pf.data.get_vertex("Liverpool Street"))
+paths = pf.find(station1, station2)
+
+for path in paths:
+  print(":".join([station.data for station in path]))
+  print("\n\n")
