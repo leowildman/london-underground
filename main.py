@@ -57,6 +57,7 @@ for station1 in station_input_data.values():
  t = Thread(target=get, args=(station1, funpaths, pf))
  t.start()
  threads.append(t)
+ print(f"Thread {station1} started.")
  
 for t in threads:
     t.join()
@@ -65,4 +66,4 @@ for t in threads:
 
 
 for path in funpaths:
-    if path[2] >100000: print(path)
+    if path[2] >80000: print(path)
